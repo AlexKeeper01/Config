@@ -42,8 +42,7 @@ tar. Эмулятор должен работать в режиме GUI.
 #include <windows.h>
 using namespace std;
 
-//cd C:\Users\aleks\source\repos\shell\x64\Debug
-//start shell.exe aleks ELBRUS C:\Users\aleks\Downloads\virtual_fs.tar C:\Users\aleks\Desktop\script.txt
+//start C:\Users\aleks\source\repos\shell\x64\Debug\shell.exe aleks ELBRUS C:\Users\aleks\Desktop\Virtual_File_System.tar C:\Users\aleks\Desktop\script.txt
 
 void setConsoleColor(int color) {
     HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
