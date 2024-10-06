@@ -171,3 +171,52 @@ constraint if dropdown >= 200 then icons = 200 else icons = 100 endif;
 solve satisfy;
 output ["Выбранные версии пакетов: ", show(menu), ", ", show(dropdown), ", ", show(icons), "\n"];
 ```
+
+## Задача 6
+
+Решить на MiniZinc задачу о зависимостях пакетов для следующих данных:
+
+```
+root 1.0.0 зависит от foo ^1.0.0 и target ^2.0.0.
+foo 1.1.0 зависит от left ^1.0.0 и right ^1.0.0.
+foo 1.0.0 не имеет зависимостей.
+left 1.0.0 зависит от shared >=1.0.0.
+right 1.0.0 зависит от shared <2.0.0.
+shared 2.0.0 не имеет зависимостей.
+shared 1.0.0 зависит от target ^1.0.0.
+target 2.0.0 и 1.0.0 не имеют зависимостей.
+```
+
+```
+set of int: PackageVersionRoot = {100};   % root 1.0.0
+set of int: PackageVersionFoo = {110, 100}; % foo 1.1.0, foo 1.0.0
+set of int: PackageVersionLeft = {000, 100};    % left 1.0.0
+set of int: PackageVersionRight = {000, 100};   % right 1.0.0
+set of int: PackageVersionShared = {000, 100, 200}; % shared 1.0.0, shared 2.0.0
+set of int: PackageVersionTarget = {200, 100}; % target 2.0.0, target 1.0.0
+
+var PackageVersionRoot: root;
+var PackageVersionFoo: foo;
+var PackageVersionLeft: left;
+var PackageVersionRight: right;
+var PackageVersionShared: shared;
+var PackageVersionTarget: target;
+
+constraint
+    (foo >= 100) /\ (target >= 200) /\
+    (if foo = 110 then left >= 100 /\ right >= 100 else true endif) /\
+    (if foo = 100 then left = 000 /\ right = 000 else true endif) /\
+    (if left = 100 then shared >= 100 else true endif) /\
+    (if right = 100 then shared < 200 else true endif) /\
+    (if shared = 100 then target >= 100 else true endif);
+
+solve satisfy;
+output [
+    "root: ", show(root), "\n",
+    "foo: ", show(foo), "\n",
+    "left: ", show(left), "\n",
+    "right: ", show(right), "\n",
+    "shared: ", show(shared), "\n",
+    "target: ", show(target), "\n"
+];
+```
