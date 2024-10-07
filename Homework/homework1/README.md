@@ -32,8 +32,18 @@ tar. Эмулятор должен работать в режиме GUI.
 Все функции эмулятора должны быть покрыты тестами, а для каждой из
 поддерживаемых команд необходимо написать 3 теста.
 
+## 1. Запуск программы
+
 ```
-//start C:\Users\aleks\source\repos\shell\x64\Debug\shell.exe aleks ELBRUS C:\Users\aleks\Desktop\Virtual_File_System.tar C:\Users\aleks\Desktop\script.txt
+//start <URL репозитория>\shell.exe aleks ELBRUS <URL репозитория>\Virtual_File_System.tar <URL репозитория>\script.txt
+```
+
+## 2. Структура проекта
+
+```
+shell.cpp                 # Основной код
+script.txt                # Файл со скриптом
+Virtual_File_System.tar   # Архив с виртуальной фаловой системой
 ```
 
 ## Результаты тестирования
