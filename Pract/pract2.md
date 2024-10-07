@@ -172,6 +172,9 @@ solve satisfy;
 output ["Выбранные версии пакетов: ", show(menu), ", ", show(dropdown), ", ", show(icons), "\n"];
 ```
 
+![image](https://github.com/user-attachments/assets/5a8086cc-cc87-466a-a24d-6741029fcf8a)
+
+
 ## Задача 6
 
 Решить на MiniZinc задачу о зависимостях пакетов для следующих данных:
@@ -220,3 +223,5 @@ output [
     "target: ", show(target), "\n"
 ];
 ```
+
+![image](https://github.com/user-attachments/assets/cc6ee6dc-d2f5-4237-815b-edc99338dc5d)
