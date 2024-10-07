@@ -164,16 +164,13 @@ var MenuVersion: menu;
 var DropdownVersion: dropdown;
 var IconsVersion: icons;
 
-constraint menu = 150;
-
 constraint if menu >= 110 then dropdown >= 200 else dropdown = 180 endif;
-constraint if dropdown >= 200 then icons = 200 else icons = 100 endif;
+constraint if dropdown <= 200 /\ dropdown > 180 then icons = 200 else icons = 100 endif;
 solve satisfy;
 output ["Выбранные версии пакетов: ", show(menu), ", ", show(dropdown), ", ", show(icons), "\n"];
 ```
 
-![image](https://github.com/user-attachments/assets/5a8086cc-cc87-466a-a24d-6741029fcf8a)
-
+![image](https://github.com/user-attachments/assets/f0ac3457-b322-42db-819b-2754164d0dcc)
 
 ## Задача 6
 
