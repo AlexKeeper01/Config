@@ -177,23 +177,12 @@ output ["Выбранные версии пакетов: ", show(menu), ", ", sh
 Решить на MiniZinc задачу о зависимостях пакетов для следующих данных:
 
 ```
-root 1.0.0 зависит от foo ^1.0.0 и target ^2.0.0.
-foo 1.1.0 зависит от left ^1.0.0 и right ^1.0.0.
-foo 1.0.0 не имеет зависимостей.
-left 1.0.0 зависит от shared >=1.0.0.
-right 1.0.0 зависит от shared <2.0.0.
-shared 2.0.0 не имеет зависимостей.
-shared 1.0.0 зависит от target ^1.0.0.
-target 2.0.0 и 1.0.0 не имеют зависимостей.
-```
-
-```
-set of int: PackageVersionRoot = {100};   % root 1.0.0
-set of int: PackageVersionFoo = {110, 100}; % foo 1.1.0, foo 1.0.0
-set of int: PackageVersionLeft = {000, 100};    % left 1.0.0
-set of int: PackageVersionRight = {000, 100};   % right 1.0.0
-set of int: PackageVersionShared = {000, 100, 200}; % shared 1.0.0, shared 2.0.0
-set of int: PackageVersionTarget = {200, 100}; % target 2.0.0, target 1.0.0
+set of int: PackageVersionRoot = {000, 100};
+set of int: PackageVersionFoo = {000, 100, 110, 120, 130, 140, 150, 160, 170, 180, 190};
+set of int: PackageVersionLeft = {000, 100, 110, 120, 130, 140, 150, 160, 170, 180, 190};
+set of int: PackageVersionRight = {000, 100, 110, 120, 130, 140, 150, 160, 170, 180, 190};
+set of int: PackageVersionShared = {000, 100, 110, 120, 130, 140, 150, 160, 170, 180, 190, 200};
+set of int: PackageVersionTarget = {000, 100, 110, 120, 130, 140, 150, 160, 170, 180, 190, 200, 210, 220, 230, 240, 250, 260, 270, 280, 290};
 
 var PackageVersionRoot: root;
 var PackageVersionFoo: foo;
@@ -203,12 +192,9 @@ var PackageVersionShared: shared;
 var PackageVersionTarget: target;
 
 constraint
-    (foo >= 100) /\ (target >= 200) /\
-    (if foo = 110 then left >= 100 /\ right >= 100 else true endif) /\
-    (if foo = 100 then left = 000 /\ right = 000 else true endif) /\
-    (if left = 100 then shared >= 100 else true endif) /\
-    (if right = 100 then shared < 200 else true endif) /\
-    (if shared = 100 then target >= 100 else true endif);
+    (root = 100) /\ (if root >= 100 then foo >= 100 /\ target >= 200 endif) /\ (if foo = 110 then left >= 100 /\ right >= 100 endif) /\
+    (if left = 100 then shared >= 100 endif) /\ (if right = 100 then shared < 200 endif) /\
+    (if shared = 100 then target >= 100 endif);
 
 solve satisfy;
 output [
@@ -221,4 +207,5 @@ output [
 ];
 ```
 
-![image](https://github.com/user-attachments/assets/cc6ee6dc-d2f5-4237-815b-edc99338dc5d)
+![image](https://github.com/user-attachments/assets/4db77b80-d254-4bf1-904f-9dd6db05c290)
+
