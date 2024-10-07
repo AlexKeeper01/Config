@@ -1,0 +1,8 @@
+du
+cd /tmp
+ls
+cd ~
+history
+wc /usr/bin/script.sh
+ls /var/spool
+history 4
