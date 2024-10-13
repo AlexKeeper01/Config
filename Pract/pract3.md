@@ -135,7 +135,7 @@ in  config
 
 Для решения дальнейших задач потребуется программа на Питоне, представленная ниже. Разбираться в самом языке Питон при этом необязательно.
 
-> Код пришлось изменить, так как он не работал должным образом
+> Код пришлось изменить, так как он не работал должным образом.
 
 ```Python
 import random
@@ -154,26 +154,32 @@ def parse_bnf(text):
 
     return grammar
 
-def generate_phrase(grammar, start):
+def generate_phrase(grammar, start, depth=0, max_depth=3):
+    if depth > max_depth:
+        return ''  # Возвращаем пустую строку, если превышена максимальная глубина
+
     if start in grammar:
         # Выбираем случайное правило для данного нетерминала
         seq = random.choice(grammar[start])
-        # Рекурсивно генерируем строку для каждого элемента последовательности
-        return ''.join([generate_phrase(grammar, name) for name in seq])
+        # Рекурсивно генерируем строку для каждого элемента последовательности без пробелов
+        return ''.join([generate_phrase(grammar, name, depth + 1, max_depth) for name in seq])
+    
     return str(start)  # Если это терминал, просто возвращаем его
 
-# Пример БНФ
+# Обновленная БНФ для укороченных выражений алгебры логики
 bnf_text = '''
-E = ε | ( E ) | { E } | E E
+
 '''
 
 # Преобразуем БНФ в словарь
 grammar_dict = parse_bnf(bnf_text)
 
-# Генерация нескольких случайных фраз
+# Генерация нескольких коротких фраз
 num_phrases = 10  # Количество строк для генерации
 for i in range(num_phrases):
-    print(generate_phrase(grammar_dict, 'E'))
+    print(generate_phrase(grammar_dict, 'E', max_depth=10))  # Вызываем с ограничением глубины
+
+
 ```
 
 Реализовать грамматики, описывающие следующие языки (для каждого решения привести БНФ). Код решения должен содержаться в переменной bnf_text.
@@ -256,16 +262,27 @@ y & ~(y)
 ~((x) & y | (y) | (x)) & x | x | (y & ~y)
 ```
 
-## Полезные ссылки
+```Python
+bnf_text = '''
+E = L
+L = A / ~ A / S / A T L / A T S
+S = ( L )
+T = | / &
+A = x / y
+'''
+```
 
-Configuration complexity clock: https://mikehadlow.blogspot.com/2012/05/configuration-complexity-clock.html
+Пример вывода:
 
-Json: http://www.json.org/json-ru.html
-
-Язык Jsonnet: https://jsonnet.org/learning/tutorial.html
-
-Язык Dhall: https://dhall-lang.org/
-
-Учебник в котором темы построения синтаксических анализаторов (БНФ, Lex/Yacc) изложены подробно: https://ita.sibsutis.ru/sites/csc.sibsutis.ru/files/courses/trans/LanguagesAndTranslationMethods.pdf
-
-Полезные материалы для разработчика (очень рекомендую посмотреть слайды и прочие ссылки, все это актуально и для других тем нашего курса): https://habr.com/ru/company/JetBrains-education/blog/547768/
+```
+x|(x|(y&x))
+~x
+y&y
+x&(y|(x))
+(y|x|((~y)))
+(~x)
+x
+x|(y)
+~x
+x|(x&x|(x))
+```
