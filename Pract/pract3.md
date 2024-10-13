@@ -133,38 +133,45 @@ in  config
 
 Для решения дальнейших задач потребуется программа на Питоне, представленная ниже. Разбираться в самом языке Питон при этом необязательно.
 
+> Код пришлось изменить, так как он не работал должным образом
+
 ```Python
 import random
 
-
 def parse_bnf(text):
-    '''
-    Преобразовать текстовую запись БНФ в словарь.
-    '''
     grammar = {}
-    rules = [line.split('=') for line in text.strip().split('\n')]
-    for name, body in rules:
-        grammar[name.strip()] = [alt.split() for alt in body.split('|')]
+    # Разделяем входной текст на строки и обрабатываем каждую строку
+    rules = [line.strip() for line in text.strip().split('\n') if line.strip()]
+    for rule in rules:
+        # Разделяем правило на имя и тело
+        name, body = rule.split('=')
+        name = name.strip()  # Убираем лишние пробелы в имени
+        # Разделяем тело на альтернативы, убирая пробелы
+        alternatives = [alt.strip().split() for alt in body.split('|')]
+        grammar[name] = alternatives  # Записываем в словарь
+
     return grammar
 
-
 def generate_phrase(grammar, start):
-    '''
-    Сгенерировать случайную фразу.
-    '''
     if start in grammar:
+        # Выбираем случайное правило для данного нетерминала
         seq = random.choice(grammar[start])
+        # Рекурсивно генерируем строку для каждого элемента последовательности
         return ''.join([generate_phrase(grammar, name) for name in seq])
-    return str(start)
+    return str(start)  # Если это терминал, просто возвращаем его
 
-
-BNF = '''
-E = a
+# Пример БНФ
+bnf_text = '''
+E = ε | ( E ) | { E } | E E
 '''
 
-for i in range(10):
-    print(generate_phrase(parse_bnf(BNF), 'E'))
+# Преобразуем БНФ в словарь
+grammar_dict = parse_bnf(bnf_text)
 
+# Генерация нескольких случайных фраз
+num_phrases = 10  # Количество строк для генерации
+for i in range(num_phrases):
+    print(generate_phrase(grammar_dict, 'E'))
 ```
 
 Реализовать грамматики, описывающие следующие языки (для каждого решения привести БНФ). Код решения должен содержаться в переменной BNF:
