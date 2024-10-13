@@ -6,7 +6,7 @@
 
 Реализовать на Jsonnet приведенный ниже пример в формате JSON. Использовать в реализации свойство программируемости и принцип DRY.
 
-```
+```Jsonnet
 local groupPrefix = "ИКБО-";
 local groupSuffix = "-20";
 
@@ -45,7 +45,7 @@ local generateGroups(start, end) = [
 
 Вывод:
 
-```
+```JSON
 {
    "groups": [
       "ИКБО-1-20",
@@ -103,7 +103,7 @@ local generateGroups(start, end) = [
 
 Реализовать на Dhall приведенный ниже пример в формате JSON. Использовать в реализации свойство программируемости и принцип DRY.
 
-```
+```Dhall
 let generateGroup : Natural → Text
 = λ(i : Natural) → "ИКБО-" ++ Text/show i ++ "-20"
 
