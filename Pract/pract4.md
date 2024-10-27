@@ -136,7 +136,6 @@ Fast-forward
 $ nano readme.md
 ```
 > Just a new readme.
-> 
 > Author: coder1
 ```
 $ git add readme.md
@@ -157,9 +156,7 @@ Automatic merge failed; fix conflicts and then commit the result.
 $ nano readme.md
 ```
 > Just a new readme.
-> 
 > Author: coder1
-> 
 > Author: coder2
 ```
 $ git add readme.md
