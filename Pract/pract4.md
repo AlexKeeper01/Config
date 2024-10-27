@@ -251,7 +251,7 @@ tree 5114700b1b645fea04e657e23eec4af1171a57a4
 author coder1 <student@mirea.ru> 1730065891 +0300
 committer coder1 <student@mirea.ru> 1730065891 +0300
 
-First program.
+First program
 
 ----------------------------------------
 Object ID: 76afbe2870db34c3a6fddcdd3743b8c8a402d34f
