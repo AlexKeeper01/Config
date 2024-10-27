@@ -135,6 +135,7 @@ Fast-forward
  create mode 100644 readme.md
 $ nano readme.md
 ```
+> Just a new readme.
 > Author: coder1
 ```
 $ git add readme.md
@@ -154,6 +155,8 @@ CONFLICT (content): Merge conflict in readme.md
 Automatic merge failed; fix conflicts and then commit the result.
 $ nano readme.md
 ```
+> Just a new readme.
+> Author: coder1
 > Author: coder2
 ```
 $ git add readme.md
