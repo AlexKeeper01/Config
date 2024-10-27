@@ -209,21 +209,16 @@ $ git log
 import subprocess
 
 def list_all_git_objects():
-    # Получаем список всех объектов репозитория
     objects = subprocess.check_output(['git', 'rev-list', '--all', '--objects']).decode().splitlines()
-    
-    # Перебираем все объекты и выводим их содержимое
+
     for obj_line in objects:
-        # Из каждой строки выделяем только идентификатор объекта (SHA1)
         obj_id = obj_line.split()[0]
         try:
-            # Выполняем команду `git cat-file -p`, чтобы получить содержимое объекта
             content = subprocess.check_output(['git', 'cat-file', '-p', obj_id]).decode()
             print("Object ID: {}\nContent:\n{}\n{}".format(obj_id, content, "-"*40))
         except subprocess.CalledProcessError as e:
             print("Error reading object {}: {}".format(obj_id, e))
 
-# Запуск функции
 list_all_git_objects()
 ```
 
