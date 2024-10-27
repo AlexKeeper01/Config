@@ -200,3 +200,96 @@ $ git log
 | 
 |     First program
 ```
+
+## Задача 4
+
+Написать программу на Питоне (или другом ЯП), которая выводит список содержимого всех объектов репозитория. Воспользоваться командой "git cat-file -p". Идеальное решение – не использовать иных сторонних команд и библиотек для работы с git.
+
+```
+import subprocess
+
+def list_all_git_objects():
+    # Получаем список всех объектов репозитория
+    objects = subprocess.check_output(['git', 'rev-list', '--all', '--objects']).decode().splitlines()
+    
+    # Перебираем все объекты и выводим их содержимое
+    for obj_line in objects:
+        # Из каждой строки выделяем только идентификатор объекта (SHA1)
+        obj_id = obj_line.split()[0]
+        try:
+            # Выполняем команду `git cat-file -p`, чтобы получить содержимое объекта
+            content = subprocess.check_output(['git', 'cat-file', '-p', obj_id]).decode()
+            print("Object ID: {}\nContent:\n{}\n{}".format(obj_id, content, "-"*40))
+        except subprocess.CalledProcessError as e:
+            print("Error reading object {}: {}".format(obj_id, e))
+
+# Запуск функции
+list_all_git_objects()
+```
+
+```
+$ cd ../my_project
+$ python3 gitt.py
+Object ID: e62fe9124b0014c307ac7a8a35754d7129d7f7a6
+Content:
+tree 76afbe2870db34c3a6fddcdd3743b8c8a402d34f
+parent 3367a5fe8c09593c164165c8e7e7f83989d8e0bd
+author coder1 <student@mirea.ru> 1730066938 +0300
+committer coder1 <student@mirea.ru> 1730066938 +0300
+
+New author
+
+----------------------------------------
+Object ID: 3367a5fe8c09593c164165c8e7e7f83989d8e0bd
+Content:
+tree 27ea4b92b6f71ed0e25c36316929c0ee753f1429
+parent dea4dd0f8a9dae53899af42697636dd25f9e16df
+author coder2 <coder2@yandex.ru> 1730066713 +0300
+committer coder2 <coder2@yandex.ru> 1730066713 +0300
+
+Adding readme.md
+
+----------------------------------------
+Object ID: dea4dd0f8a9dae53899af42697636dd25f9e16df
+Content:
+tree 5114700b1b645fea04e657e23eec4af1171a57a4
+author coder1 <student@mirea.ru> 1730065891 +0300
+committer coder1 <student@mirea.ru> 1730065891 +0300
+
+First program.
+
+----------------------------------------
+Object ID: 76afbe2870db34c3a6fddcdd3743b8c8a402d34f
+Content:
+100644 blob f7cf60e14f9a9e9805e0463e7fa33b6c91204c4d	prog.py
+100644 blob 0d890f0ac261649a0329efc54788e5380a610f4b	readme.md
+
+----------------------------------------
+Object ID: f7cf60e14f9a9e9805e0463e7fa33b6c91204c4d
+Content:
+print("Hello, world!")
+
+----------------------------------------
+Object ID: 0d890f0ac261649a0329efc54788e5380a610f4b
+Content:
+Just a README file.
+Author: Coder 1
+
+----------------------------------------
+Object ID: 27ea4b92b6f71ed0e25c36316929c0ee753f1429
+Content:
+100644 blob f7cf60e14f9a9e9805e0463e7fa33b6c91204c4d	prog.py
+100644 blob 5f5fd4c84d1d9ce71e57afcabcf376e6d38ae8f4	readme.md
+
+----------------------------------------
+Object ID: 5f5fd4c84d1d9ce71e57afcabcf376e6d38ae8f4
+Content:
+Just a README file.
+
+----------------------------------------
+Object ID: 5114700b1b645fea04e657e23eec4af1171a57a4
+Content:
+100644 blob f7cf60e14f9a9e9805e0463e7fa33b6c91204c4d	prog.py
+
+----------------------------------------
+```
