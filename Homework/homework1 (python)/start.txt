@@ -1,0 +1,2 @@
+cd C:\Users\aleks\PycharmProjects\config_dz_1
+python emulator.py --user myuser --host myhost --fs linux_filesystem.zip
