@@ -1,5 +1,4 @@
 import zipfile
-import os
 
 class VirtualFileSystem:
     def __init__(self, zip_path):
