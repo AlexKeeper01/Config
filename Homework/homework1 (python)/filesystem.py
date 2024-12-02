@@ -96,20 +96,20 @@ class VirtualFileSystem:
         search(current, resolved_path)
         return "\n".join(results)
 
-    def wc(self, path):
-        resolved_path = self._resolve_path(path)
-        parts = resolved_path[2:].split("/")
+    def wc(self, name):
+        path = self.current_path + "/" + name
+        parts = path[2:].split("/")
         current = self.fs["~"]
         for part in parts[:-1]:
             if part in current and isinstance(current[part], dict):
                 current = current[part]
             else:
                 raise ValueError(f"wc: {path}: Нет такого файла или каталога")
-        file_name = parts[-1]
+        file_name = name
         if file_name not in current or not isinstance(current[file_name], str):
             raise ValueError(f"wc: {path}: Нет такого файла")
         content = current[file_name]
-        lines = content.count("\n") + 1
+        lines = (content.strip("\n")).count("\n") + 1
         words = len(content.split())
         bytes_ = len(content.encode("utf-8"))
         return f"{lines} {words} {bytes_}"
