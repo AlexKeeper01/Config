@@ -14,17 +14,20 @@ class Shell:
             return ""
         cmd, *args = parts
 
-        if cmd == "ls":
-            return "\n".join(self.vfs.list_directory(*args))
-        elif cmd == "cd":
-            self.vfs.change_directory(*args)
-        elif cmd == "exit":
-            self.running = False
-        elif cmd == "whoami":
-            return self.user
-        elif cmd == "find":
-            return self.vfs.find(*args)
-        elif cmd == "wc":
-            return self.vfs.wc(*args)
-        else:
-            return f"Неизвестная команда: {cmd}"
+        try:
+            if cmd == "ls":
+                return "\n".join(sorted(self.vfs.list_directory(*args)))
+            elif cmd == "cd":
+                self.vfs.change_directory(*args)
+            elif cmd == "exit":
+                self.running = False
+            elif cmd == "whoami":
+                return self.user
+            elif cmd == "find":
+                return self.vfs.find(*args)
+            elif cmd == "wc":
+                return self.vfs.wc(*args)
+            else:
+                return f"Неизвестная команда: {cmd}"
+        except ValueError as e:
+            return str(e)
