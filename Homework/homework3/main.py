@@ -77,10 +77,9 @@ def translate(json_input, context=None, indent_level=0): # Рекурсивна�
 
     except json.JSONDecodeError:
         print("Ошибка: Некорректный JSON.")
-        sys.exit()
+        sys.exit(1)
     except ValueError as e:
-        print(f"Ошибка: {e}")
-        sys.exit()
+        raise ValueError(f"{e}")
 
 
 # Чтение данных из input.json
