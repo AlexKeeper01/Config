@@ -1,0 +1,6 @@
+{
+  "graph_tool_path": "C:/Users/aleks/AppData/Roaming/npm/mmdc.cmd",
+  "package_url": "https://www.nuget.org/api/v2/package",
+  "package_name": "Dapper",
+  "output_path": "./graphs/dependency_graph.svg"
+}
