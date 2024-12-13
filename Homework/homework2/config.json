@@ -1,6 +1,0 @@
-{
-  "graph_tool_path": "C:/Users/aleks/AppData/Roaming/npm/mmdc.cmd",
-  "path_to_packages": "./packages/",
-  "package_name": "newtonsoft.json.13.0.3.nupkg",
-  "output_path": "./graphs/dependency_graph.svg"
-}
