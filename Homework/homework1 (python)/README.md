@@ -1,4 +1,4 @@
-emulator.py
+# emulator.py
 
 ```
 import argparse
@@ -30,7 +30,7 @@ if __name__ == "__main__":
     gui.run()
 ```
 
-filesystem.py
+# filesystem.py
 
 ```
 import zipfile
@@ -149,7 +149,7 @@ class VirtualFileSystem:
         return f"{lines} {words} {bytes_}"
 ```
 
-gui.py
+# gui.py
 
 ```
 import tkinter as tk
@@ -189,7 +189,7 @@ class ShellGUI:
         root.mainloop()
 ```
 
-shell.py
+# shell.py
 
 ```
 class Shell:
@@ -227,7 +227,7 @@ class Shell:
             return str(e)
 ```
 
-test_commands.py
+# test_commands.py
 
 ```
 import pytest
